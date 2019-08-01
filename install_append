@@ -1,0 +1,4 @@
+mkdir -p %{buildroot}/usr/bin
+ln -s /usr/libexec/postgresql11/pg_ctl %{buildroot}/usr/bin/pg_ctl11
+ln -s /usr/libexec/postgresql11/pg_dump %{buildroot}/usr/bin/pg_dump11
+ln -s /usr/libexec/postgresql11/pg_dumpall %{buildroot}/usr/bin/pg_dumpall11

@@ -1,0 +1,12 @@
+--prefix=/usr/share/postgresql11
+--bindir=/usr/libexec/postgresql11
+--sysconfdir=/etc/postgresql11
+--datadir=/usr/share/postgresql11
+--includedir=/usr/include/postgresql11
+--libdir=/usr/lib64/postgresql11
+--with-includes=/usr/include/readline/
+--enable-tap-tests
+--with-systemd
+--with-openssl
+--with-python
+--with-pam
