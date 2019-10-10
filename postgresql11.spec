@@ -4,7 +4,7 @@
 #
 Name     : postgresql11
 Version  : 11.5
-Release  : 2
+Release  : 3
 URL      : https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.bz2
 Source0  : https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.bz2
 Source1  : postgresql11-install.service
@@ -130,7 +130,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565483933
+export SOURCE_DATE_EPOCH=1570724022
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -154,7 +154,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1565483933
+export SOURCE_DATE_EPOCH=1570724022
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/postgresql11
 cp COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/COPYRIGHT

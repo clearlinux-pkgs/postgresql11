@@ -3,6 +3,8 @@ After=syslog.target
 ConditionPathExists=!/var/lib/pgsql11
 
 [Service]
+User=postgres
+PermissionsStartOnly=true
 Type=oneshot
 ExecStartPre=/usr/bin/install -d -m 0700 -opostgres -gpostgres /var/lib/pgsql11/data
 #
@@ -13,4 +15,4 @@ ExecStartPre=/usr/bin/install -d -m 0700 -opostgres -gpostgres /var/lib/pgsql11/
 # running is suboptimal, we default to rejecting all connections until the
 # user explicitly sets this up
 #
-ExecStart=/usr/bin/su postgres -s /bin/bash -c "/usr/libexec/postgresql11/initdb -D /var/lib/pgsql11/data --auth=reject"
+ExecStart=/usr/libexec/postgresql11/initdb -D /var/lib/pgsql11/data --auth=reject
