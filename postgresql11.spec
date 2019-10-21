@@ -4,7 +4,7 @@
 #
 Name     : postgresql11
 Version  : 11.5
-Release  : 4
+Release  : 5
 URL      : https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.bz2
 Source0  : https://ftp.postgresql.org/pub/source/v11.5/postgresql-11.5.tar.bz2
 Source1  : postgresql11-install.service
@@ -28,6 +28,7 @@ BuildRequires : libxslt-bin
 BuildRequires : ncurses-dev
 BuildRequires : openssl-dev
 BuildRequires : perl(IPC::Run)
+BuildRequires : perl(Test::More)
 BuildRequires : pkgconfig(icu-i18n)
 BuildRequires : pkgconfig(icu-uc)
 BuildRequires : python3-dev
@@ -130,7 +131,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1570724022
+export SOURCE_DATE_EPOCH=1571637973
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -154,11 +155,11 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1570724022
+export SOURCE_DATE_EPOCH=1571637973
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/postgresql11
-cp COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/COPYRIGHT
-cp src/backend/regex/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/src_backend_regex_COPYRIGHT
+cp %{_builddir}/postgresql-11.5/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/7380d98d972fbc1618ff66f2d8b8f2371ed5023e
+cp %{_builddir}/postgresql-11.5/src/backend/regex/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/9ca05e9c70d9823e191d9b3876ecdeb57c53c725
 %make_install
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/postgresql11-install.service
@@ -1722,8 +1723,8 @@ ln -s /usr/libexec/postgresql11/pg_dumpall %{buildroot}/usr/bin/pg_dumpall11
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/postgresql11/COPYRIGHT
-/usr/share/package-licenses/postgresql11/src_backend_regex_COPYRIGHT
+/usr/share/package-licenses/postgresql11/7380d98d972fbc1618ff66f2d8b8f2371ed5023e
+/usr/share/package-licenses/postgresql11/9ca05e9c70d9823e191d9b3876ecdeb57c53c725
 
 %files services
 %defattr(-,root,root,-)

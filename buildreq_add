@@ -7,3 +7,4 @@ systemd-dev
 ncurses-dev
 python3-dev
 Linux-PAM-dev
+perl(Test::More)
