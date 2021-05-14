@@ -1,10 +1,14 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-zlib-dev
+Linux-PAM-dev
+bison
+flex
+libxslt-bin
+ncurses-dev
 openssl-dev
 perl(IPC::Run)
-systemd-dev
-ncurses-dev
-python3-dev
-Linux-PAM-dev
 perl(Test::More)
+python3-dev
+readline-dev
+systemd-dev
+zlib-dev
