@@ -4,7 +4,7 @@
 #
 Name     : postgresql11
 Version  : 11.13
-Release  : 18
+Release  : 19
 URL      : https://ftp.postgresql.org/pub/source/v11.13/postgresql-11.13.tar.gz
 Source0  : https://ftp.postgresql.org/pub/source/v11.13/postgresql-11.13.tar.gz
 Source1  : postgresql11-install.service
