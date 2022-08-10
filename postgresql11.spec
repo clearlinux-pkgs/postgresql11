@@ -4,22 +4,16 @@
 #
 Name     : postgresql11
 Version  : 11.16
-Release  : 22
+Release  : 23
 URL      : https://ftp.postgresql.org/pub/source/v11.16/postgresql-11.16.tar.gz
 Source0  : https://ftp.postgresql.org/pub/source/v11.16/postgresql-11.16.tar.gz
-Source1  : postgresql11-install.service
-Source2  : postgresql11.service
-Source3  : postgresql11.tmpfiles
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : PostgreSQL TCL
-Requires: postgresql11-bin = %{version}-%{release}
-Requires: postgresql11-config = %{version}-%{release}
 Requires: postgresql11-data = %{version}-%{release}
 Requires: postgresql11-lib = %{version}-%{release}
 Requires: postgresql11-libexec = %{version}-%{release}
 Requires: postgresql11-license = %{version}-%{release}
-Requires: postgresql11-services = %{version}-%{release}
 BuildRequires : Linux-PAM-dev
 BuildRequires : bison
 BuildRequires : flex
@@ -43,27 +37,6 @@ PostgreSQL Database Management System
 This directory contains the source code distribution of the PostgreSQL
 database management system.
 
-%package bin
-Summary: bin components for the postgresql11 package.
-Group: Binaries
-Requires: postgresql11-data = %{version}-%{release}
-Requires: postgresql11-libexec = %{version}-%{release}
-Requires: postgresql11-config = %{version}-%{release}
-Requires: postgresql11-license = %{version}-%{release}
-Requires: postgresql11-services = %{version}-%{release}
-
-%description bin
-bin components for the postgresql11 package.
-
-
-%package config
-Summary: config components for the postgresql11 package.
-Group: Default
-
-%description config
-config components for the postgresql11 package.
-
-
 %package data
 Summary: data components for the postgresql11 package.
 Group: Data
@@ -76,7 +49,6 @@ data components for the postgresql11 package.
 Summary: dev components for the postgresql11 package.
 Group: Development
 Requires: postgresql11-lib = %{version}-%{release}
-Requires: postgresql11-bin = %{version}-%{release}
 Requires: postgresql11-data = %{version}-%{release}
 Provides: postgresql11-devel = %{version}-%{release}
 Requires: postgresql11 = %{version}-%{release}
@@ -99,7 +71,6 @@ lib components for the postgresql11 package.
 %package libexec
 Summary: libexec components for the postgresql11 package.
 Group: Default
-Requires: postgresql11-config = %{version}-%{release}
 Requires: postgresql11-license = %{version}-%{release}
 
 %description libexec
@@ -114,14 +85,6 @@ Group: Default
 license components for the postgresql11 package.
 
 
-%package services
-Summary: services components for the postgresql11 package.
-Group: Systemd services
-
-%description services
-services components for the postgresql11 package.
-
-
 %prep
 %setup -q -n postgresql-11.16
 cd %{_builddir}/postgresql-11.16
@@ -132,7 +95,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1652376345
+export SOURCE_DATE_EPOCH=1660153396
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -148,31 +111,18 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 --includedir=/usr/include/postgresql11 \
 --libdir=/usr/lib64/postgresql11 \
 --with-includes=/usr/include/readline/ \
---enable-tap-tests \
---with-systemd \
 --with-openssl \
 --with-python \
 --with-pam
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1652376345
+export SOURCE_DATE_EPOCH=1660153396
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/postgresql11
-cp %{_builddir}/postgresql-11.16/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/db5a4f50b09e55794c5812fec9718988aa4486e8
-cp %{_builddir}/postgresql-11.16/src/backend/regex/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/9ca05e9c70d9823e191d9b3876ecdeb57c53c725
+cp %{_builddir}/postgresql-%{version}/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/db5a4f50b09e55794c5812fec9718988aa4486e8
+cp %{_builddir}/postgresql-%{version}/src/backend/regex/COPYRIGHT %{buildroot}/usr/share/package-licenses/postgresql11/9ca05e9c70d9823e191d9b3876ecdeb57c53c725
 %make_install
-mkdir -p %{buildroot}/usr/lib/systemd/system
-install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/postgresql11-install.service
-install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/postgresql11.service
-mkdir -p %{buildroot}/usr/lib/tmpfiles.d
-install -m 0644 %{SOURCE3} %{buildroot}/usr/lib/tmpfiles.d/postgresql11.conf
-## install_append content
-mkdir -p %{buildroot}/usr/bin
-ln -s /usr/libexec/postgresql11/pg_ctl %{buildroot}/usr/bin/pg_ctl11
-ln -s /usr/libexec/postgresql11/pg_dump %{buildroot}/usr/bin/pg_dump11
-ln -s /usr/libexec/postgresql11/pg_dumpall %{buildroot}/usr/bin/pg_dumpall11
-## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -184,25 +134,11 @@ ln -s /usr/libexec/postgresql11/pg_dumpall %{buildroot}/usr/bin/pg_dumpall11
 /usr/lib64/postgresql11/pgxs/src/makefiles/pgxs.mk
 /usr/lib64/postgresql11/pgxs/src/nls-global.mk
 /usr/lib64/postgresql11/pgxs/src/pl/plpython/regress-python3-mangle.mk
-/usr/lib64/postgresql11/pgxs/src/test/perl/PostgresNode.pm
-/usr/lib64/postgresql11/pgxs/src/test/perl/RecursiveCopy.pm
-/usr/lib64/postgresql11/pgxs/src/test/perl/SimpleTee.pm
-/usr/lib64/postgresql11/pgxs/src/test/perl/TestLib.pm
 /usr/lib64/postgresql11/pgxs/src/test/regress/pg_regress
 /usr/lib64/postgresql11/pkgconfig/libecpg.pc
 /usr/lib64/postgresql11/pkgconfig/libecpg_compat.pc
 /usr/lib64/postgresql11/pkgconfig/libpgtypes.pc
 /usr/lib64/postgresql11/pkgconfig/libpq.pc
-
-%files bin
-%defattr(-,root,root,-)
-/usr/bin/pg_ctl11
-/usr/bin/pg_dump11
-/usr/bin/pg_dumpall11
-
-%files config
-%defattr(-,root,root,-)
-/usr/lib/tmpfiles.d/postgresql11.conf
 
 %files data
 %defattr(-,root,root,-)
@@ -1729,8 +1665,3 @@ ln -s /usr/libexec/postgresql11/pg_dumpall %{buildroot}/usr/bin/pg_dumpall11
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/postgresql11/9ca05e9c70d9823e191d9b3876ecdeb57c53c725
 /usr/share/package-licenses/postgresql11/db5a4f50b09e55794c5812fec9718988aa4486e8
-
-%files services
-%defattr(-,root,root,-)
-/usr/lib/systemd/system/postgresql11-install.service
-/usr/lib/systemd/system/postgresql11.service

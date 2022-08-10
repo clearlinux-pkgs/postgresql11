@@ -1,1 +1,0 @@
-d /run/postgresql11 0755 postgres postgres - -
