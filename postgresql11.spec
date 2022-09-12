@@ -4,7 +4,7 @@
 #
 Name     : postgresql11
 Version  : 11.17
-Release  : 24
+Release  : 25
 URL      : https://ftp.postgresql.org/pub/source/v11.17/postgresql-11.17.tar.gz
 Source0  : https://ftp.postgresql.org/pub/source/v11.17/postgresql-11.17.tar.gz
 Summary  : No detailed summary available
